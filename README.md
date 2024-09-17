@@ -1,4 +1,4 @@
-**Software Development Methods, 2024**\
+**Software Development Methods, 2024** <br/>
 
 Luca Bertone\
 
