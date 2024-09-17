@@ -1,10 +1,12 @@
-**Software Development Methods, 2024**
-Luca Bertone
+**Software Development Methods, 2024**\
 
-Project: Implementation of "QUENTIN" game
+Luca Bertone\
 
-Development in: app/src/main/java/org/example/app
-  • Quentin.java: contains the implementation of the game, the main method allows to play the game on the terminal
-  • BoardPanel.java: contains a simple interface for the game (the players still have to write the instructions on the terminal)
+Project: Implementation of "QUENTIN" game\
 
-Tests in: app/src/test/java/org/example/app/
+
+Development in: app/src/main/java/org/example/app\
+  • Quentin.java: contains the implementation of the game, the main method allows to play the game on the terminal\
+  • BoardPanel.java: contains a simple interface for the game (the players still have to write the instructions on the terminal)\
+
+Tests in: app/src/test/java/org/example/app/ \
