@@ -6,15 +6,15 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class candidate_for_territory_test {
+public class isTerritoryTests {
 
     @Test
-    public void candidate4territory_test_topleft_false() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "c2");        
-        myboard.nextMove_tests(false, "c1");
+    public void isTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(false, "b2");
+        myBoard.nextMove_tests(true, "c2");        
+        myBoard.nextMove_tests(false, "c1");
         
         //      _________________________________
         //     |                                 |
@@ -35,16 +35,16 @@ public class candidate_for_territory_test {
         //          1     2     3     4     5
         //
         // The points [a1,b1] do not constitute a territory since point a1 does not have two filled neighbours 
-        assertEquals(false, myboard.candidate_for_territory(Arrays.asList(0,5)));
+        assertEquals(false, myBoard.isTerritory(Arrays.asList(0,5)));
     }
 
 
     @Test
-    public void candidate4territory_test_topleft_true() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "b1");        
+    public void isTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(false, "b2");
+        myBoard.nextMove_tests(true, "b1");        
         
         //      _________________________________
         //     |                                 |
@@ -65,17 +65,17 @@ public class candidate_for_territory_test {
         //          1     2     3     4     5
         //
         // The point a1 has two filled neighbours, so it is a territory
-        assertEquals(true, myboard.candidate_for_territory(Arrays.asList(0)));
+        assertEquals(true, myBoard.isTerritory(Arrays.asList(0)));
     }
 
 
     @Test
-    public void candidate4territory_test_rightedge_true() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a5");
-        myboard.nextMove_tests(false, "b4");
-        myboard.nextMove_tests(true, "d5");        
-        myboard.nextMove_tests(false, "c4");
+    public void isTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a5");
+        myBoard.nextMove_tests(false, "b4");
+        myBoard.nextMove_tests(true, "d5");        
+        myBoard.nextMove_tests(false, "c4");
 
         //      _________________________________
         //     |                                 |
@@ -96,7 +96,7 @@ public class candidate_for_territory_test {
         //          1     2     3     4     5
         //
         // The points [b5,c5] are a territory
-        assertEquals(true, myboard.candidate_for_territory(Arrays.asList(9,14)));
+        assertEquals(true, myBoard.isTerritory(Arrays.asList(9,14)));
     }
 
 }

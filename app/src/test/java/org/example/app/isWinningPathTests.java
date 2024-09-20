@@ -7,18 +7,18 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class winning_path_lookup_test {
+public class isWinningPathTests {
 
     @Test
-    public void winningpathlookup_test_black_false_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(true, "b2");        
-        myboard.nextMove_tests(true, "c2");
-        myboard.nextMove_tests(true, "c3");
-        myboard.nextMove_tests(true, "c4");
-        myboard.nextMove_tests(true, "d4");
+    public void isWinningPathBlackFalseTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a1");
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(true, "b2");        
+        myBoard.nextMove_tests(true, "c2");
+        myBoard.nextMove_tests(true, "c3");
+        myBoard.nextMove_tests(true, "c4");
+        myBoard.nextMove_tests(true, "d4");
 
         //      _________________________________
         //     |                                 |
@@ -38,21 +38,21 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(false, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(false, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 
 
     @Test
-    public void winningpathlookup_test_black_false_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(true, "b2");        
-        myboard.nextMove_tests(true, "c2");
-        myboard.nextMove_tests(true, "c3");
-        myboard.nextMove_tests(true, "c4");
-        myboard.nextMove_tests(true, "d4");
-        myboard.nextMove_tests(true, "d5");
+    public void isWinningPathBlackFalseTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a1");
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(true, "b2");        
+        myBoard.nextMove_tests(true, "c2");
+        myBoard.nextMove_tests(true, "c3");
+        myBoard.nextMove_tests(true, "c4");
+        myBoard.nextMove_tests(true, "d4");
+        myBoard.nextMove_tests(true, "d5");
 
         //      _________________________________
         //     |                                 |
@@ -72,21 +72,21 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(false, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(false, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 
 
     @Test
-    public void winningpathlookup_test_black_true() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(true, "b2");        
-        myboard.nextMove_tests(true, "c2");
-        myboard.nextMove_tests(true, "c3");
-        myboard.nextMove_tests(true, "c4");
-        myboard.nextMove_tests(true, "d4");
-        myboard.nextMove_tests(true, "e4");
+    public void isWinningPathBlackTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a1");
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(true, "b2");        
+        myBoard.nextMove_tests(true, "c2");
+        myBoard.nextMove_tests(true, "c3");
+        myBoard.nextMove_tests(true, "c4");
+        myBoard.nextMove_tests(true, "d4");
+        myBoard.nextMove_tests(true, "e4");
 
         //      _________________________________
         //     |                                 |
@@ -106,20 +106,20 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(true, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(true, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 
 
     @Test
-    public void winningpathlookup_test_white_false_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(false, "a1");
-        myboard.nextMove_tests(false, "a2");
-        myboard.nextMove_tests(false, "b2");        
-        myboard.nextMove_tests(false, "c2");
-        myboard.nextMove_tests(false, "c3");
-        myboard.nextMove_tests(false, "c4");
-        myboard.nextMove_tests(false, "d4");
+    public void isWinningPathWhiteFalseTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(false, "a1");
+        myBoard.nextMove_tests(false, "a2");
+        myBoard.nextMove_tests(false, "b2");        
+        myBoard.nextMove_tests(false, "c2");
+        myBoard.nextMove_tests(false, "c3");
+        myBoard.nextMove_tests(false, "c4");
+        myBoard.nextMove_tests(false, "d4");
 
         //      _________________________________
         //     |                                 |
@@ -139,21 +139,21 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(false, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(false, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 
 
     @Test
-    public void winningpathlookup_test_white_false_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(false, "a1");
-        myboard.nextMove_tests(false, "a2");
-        myboard.nextMove_tests(false, "b2");        
-        myboard.nextMove_tests(false, "c2");
-        myboard.nextMove_tests(false, "c3");
-        myboard.nextMove_tests(false, "c4");
-        myboard.nextMove_tests(false, "d4");
-        myboard.nextMove_tests(false, "e4");
+    public void isWinningPathWhiteFalseTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(false, "a1");
+        myBoard.nextMove_tests(false, "a2");
+        myBoard.nextMove_tests(false, "b2");        
+        myBoard.nextMove_tests(false, "c2");
+        myBoard.nextMove_tests(false, "c3");
+        myBoard.nextMove_tests(false, "c4");
+        myBoard.nextMove_tests(false, "d4");
+        myBoard.nextMove_tests(false, "e4");
 
         //      _________________________________
         //     |                                 |
@@ -173,21 +173,21 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(false, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(false, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 
 
     @Test
-    public void winningpathlookup_test_white_true() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(false, "a1");
-        myboard.nextMove_tests(false, "a2");
-        myboard.nextMove_tests(false, "b2");        
-        myboard.nextMove_tests(false, "c2");
-        myboard.nextMove_tests(false, "c3");
-        myboard.nextMove_tests(false, "c4");
-        myboard.nextMove_tests(false, "d4");
-        myboard.nextMove_tests(false, "d5");
+    public void isWinningPathWhiteTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(false, "a1");
+        myBoard.nextMove_tests(false, "a2");
+        myBoard.nextMove_tests(false, "b2");        
+        myBoard.nextMove_tests(false, "c2");
+        myBoard.nextMove_tests(false, "c3");
+        myBoard.nextMove_tests(false, "c4");
+        myBoard.nextMove_tests(false, "d4");
+        myBoard.nextMove_tests(false, "d5");
 
         //      _________________________________
         //     |                                 |
@@ -207,7 +207,7 @@ public class winning_path_lookup_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        assertEquals(true, myboard.winning_path_lookup(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
+        assertEquals(true, myBoard.isWinningPath(0, new ArrayList<Integer>(), new TreeSet<Integer>()));
     }
 }
 

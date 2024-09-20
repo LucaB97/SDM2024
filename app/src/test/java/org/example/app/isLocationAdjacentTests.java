@@ -8,17 +8,17 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class adjacent_location_test {
+public class isLocationAdjacentTests {
 
     // The point is NOT adjacent to the region
     @Test
-    public void nextregion_test_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "a2");        
-        myboard.nextMove_tests(false, "c2");
-        myboard.nextMove_tests(true, "d1");
+    public void locationNotAdjacentTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a1");
+        myBoard.nextMove_tests(false, "b2");
+        myBoard.nextMove_tests(true, "a2");        
+        myBoard.nextMove_tests(false, "c2");
+        myBoard.nextMove_tests(true, "d1");
         
         //      _________________________________
         //     |                                 |
@@ -39,18 +39,18 @@ public class adjacent_location_test {
         //          1     2     3     4     5
         //
         // The point b1 is "orthogonally" separated from the region [a3,a4,a5] 
-        List<Integer> myregion = new ArrayList<>(Arrays.asList(2,3,4));
-        assertEquals(false, myboard.adjacent_location(myregion, 5));
+        List<Integer> myRegion = new ArrayList<>(Arrays.asList(2,3,4));
+        assertEquals(false, myBoard.isLocationAdjacent(myRegion, 5));
     }
 
     // The point is adjacent to the region
     @Test
-    public void nextregion_test_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(false, "c2");
+    public void locationAdjacentTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(5);
+        myBoard.nextMove_tests(true, "a1");
+        myBoard.nextMove_tests(false, "b2");
+        myBoard.nextMove_tests(true, "a2");
+        myBoard.nextMove_tests(false, "c2");
 
         //      _________________________________
         //     |                                 |
@@ -70,8 +70,8 @@ public class adjacent_location_test {
         //     |_________________________________|
         //          1     2     3     4     5
 
-        List<Integer> myregion = new ArrayList<>(Arrays.asList(2,3,4));
-        assertEquals(true, myboard.adjacent_location(myregion, 5));
+        List<Integer> myRegion = new ArrayList<>(Arrays.asList(2,3,4));
+        assertEquals(true, myBoard.isLocationAdjacent(myRegion, 5));
     }
 
 }

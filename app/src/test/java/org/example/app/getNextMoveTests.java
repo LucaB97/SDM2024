@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
-/* Game myboard = new Game(13);
+/* Game myBoard = new Game(13);
    _________________________________________________________________________________ 
   |                                                                                 |
  a|      ...   ...   ...   ...   ...   ...   ...   ...   ...   ...   ...   ...      |
@@ -53,61 +53,61 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 */
 
 
-public class nextmove_test {
+public class getNextMoveTests {
     
     //INCORRECT FORMAT EXCEPTION TESTS: only inputs like <letter><number> should be accepted
     @Test
-    public void nextmove_test_incorrectformatException_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        assertThrows(IncorrectFormatException.class, () -> {myboard.nextMove_tests(true, "a-4");});
+    public void getNextMoveIncorrectFormatExceptionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "a-4");});
     }
 
     @Test
-    public void nextmove_test_incorrectformatException_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        assertThrows(IncorrectFormatException.class, () -> {myboard.nextMove_tests(true, "4a");});
+    public void getNextMoveIncorrectFormatExceptionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "4a");});
     }
 
     @Test
-    public void nextmove_test_incorrectformatException_3() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        assertThrows(IncorrectFormatException.class, () -> {myboard.nextMove_tests(true, "4");});
+    public void getNextMoveIncorrectFormatExceptionTest3() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "4");});
     }
 
     //INVALID LOCATION EXCEPTION TESTS: inputs exceeding the board should be rejected
     @Test
-    public void nextmove_test_invalidlocationException_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        assertThrows(InvalidLocationException.class, () -> {myboard.nextMove_tests(true, "n0");});
+    public void getNextMoveInvalidLocationExceptionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        assertThrows(InvalidLocationException.class, () -> {myBoard.nextMove_tests(true, "n0");});
     }
 
     @Test
-    public void nextmove_test_invalidlocationException_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        assertThrows(InvalidLocationException.class, () -> {myboard.nextMove_tests(true, "a14");});
+    public void getNextMoveInvalidLocationExceptionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        assertThrows(InvalidLocationException.class, () -> {myBoard.nextMove_tests(true, "a14");});
     }
 
     //OCCUPIED LOCATION EXCEPTION TESTS
     @Test
-    public void nextmove_test_occupiedlocationException() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        myboard.nextMove_tests(true, "a1");
-        assertThrows(OccupiedLocationException.class, () -> {myboard.nextMove_tests(false, "a1");});
+    public void getNextMoveOccupiedLocationExceptionTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        myBoard.nextMove_tests(true, "a1");
+        assertThrows(OccupiedLocationException.class, () -> {myBoard.nextMove_tests(false, "a1");});
     }
 
     //REGULAR FUNCTIONING 
     @Test
-    public void nextmove_test_correct_placing_black() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        myboard.nextMove_tests(true, "a2");
-        assertEquals(0, myboard.board.get(1));
+    public void getNextMoveCorrectPlacingBlackTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        myBoard.nextMove_tests(true, "a2");
+        assertEquals(0, myBoard.board.get(1));
     }
 
     @Test
-    public void nextmove_test_correct_placing_white() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-        Game myboard = new Game(13);
-        myboard.nextMove_tests(false, "a4");
-        assertEquals(1, myboard.board.get(3));
+    public void getNextMoveCorrectPlacingWhiteTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+        Game myBoard = new Game(13);
+        myBoard.nextMove_tests(false, "a4");
+        assertEquals(1, myBoard.board.get(3));
     }
 
 }

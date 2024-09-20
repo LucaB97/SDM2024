@@ -8,11 +8,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class nextregion_test {
+public class findNextRegionTests {
 
     //TEST REGIONS WHICH ARE NOT TERRITORIES
     @Test
-    public void nextregion_test_1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void findNextRegionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
         myboard.nextMove_tests(true, "a1");
         myboard.nextMove_tests(false, "b2");
@@ -39,15 +39,15 @@ public class nextregion_test {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        // The function next_region scans the array linearly (completing the rows), 
+        // The function findNextRegion scans the array linearly (completing the rows), 
         // so the first empty region should be find at: [a3,a4,a5], which corresponds to the indexes: [2,3,4]
         
-        List<Integer> empty_locations = myboard.find_locations(false);
-        assertEquals(new ArrayList<>(Arrays.asList(2,3,4)), myboard.next_region(empty_locations));
+        List<Integer> emptyLocations = myboard.findEmptyLocations(true);
+        assertEquals(new ArrayList<>(Arrays.asList(2,3,4)), myboard.findNextRegion(emptyLocations));
     }
 
     @Test
-    public void nextregion_test_2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void findNextRegionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
         myboard.nextMove_tests(true, "a1");
         myboard.nextMove_tests(false, "b2");
@@ -78,8 +78,8 @@ public class nextregion_test {
         //          1     2     3     4     5
         //
         // Expected region: [b1,c1] --> [5,10] 
-        List<Integer> empty_locations = myboard.find_locations(false);
-        assertEquals(new ArrayList<>(Arrays.asList(5,10)), myboard.next_region(empty_locations));
+        List<Integer> emptyLocations = myboard.findEmptyLocations(true);
+        assertEquals(new ArrayList<>(Arrays.asList(5,10)), myboard.findNextRegion(emptyLocations));
     }
 
 }

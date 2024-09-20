@@ -100,15 +100,15 @@ public class BoardPanel extends JPanel {
 
         do {
             System.out.println("BLACK MOVES");
-            panel.new_game.update_board(true);
+            panel.new_game.updateBoard(true);
             panel.repaint();
-            if (!panel.new_game.gameover()) {
+            if (!panel.new_game.checkIsGameover()) {
                 System.out.println("WHITE MOVES");
-                panel.new_game.update_board(false);
+                panel.new_game.updateBoard(false);
                 panel.repaint();
             }
-        } while (!panel.new_game.gameover());
-        panel.new_game.update_board(false);
+        } while (!panel.new_game.checkIsGameover());
+        panel.new_game.updateBoard(false);
         
     }
 }
