@@ -1,6 +1,5 @@
 package org.example.app;
 
-import org.example.app.Quentin.Game;
 import exceptions.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,12 +13,12 @@ public class findNextRegionTests {
     @Test
     public void findNextRegionTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "a2");        
-        myboard.nextMove_tests(false, "b3");
-        myboard.nextMove_tests(true, "b4");
-        myboard.nextMove_tests(false, "b5");
+        myboard.getNextMove(true, "a1");
+        myboard.getNextMove(false, "b2");
+        myboard.getNextMove(true, "a2");        
+        myboard.getNextMove(false, "b3");
+        myboard.getNextMove(true, "b4");
+        myboard.getNextMove(false, "b5");
         
         //      _________________________________
         //     |                                 |
@@ -49,15 +48,15 @@ public class findNextRegionTests {
     @Test
     public void findNextRegionTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
-        myboard.nextMove_tests(true, "a1");
-        myboard.nextMove_tests(false, "b2");
-        myboard.nextMove_tests(true, "a2");
-        myboard.nextMove_tests(false, "c2");
-        myboard.nextMove_tests(true, "a3");
-        myboard.nextMove_tests(false, "d2");
-        myboard.nextMove_tests(true, "a4");
-        myboard.nextMove_tests(false, "d1");
-        myboard.nextMove_tests(true, "a5");
+        myboard.getNextMove(true, "a1");
+        myboard.getNextMove(false, "b2");
+        myboard.getNextMove(true, "a2");
+        myboard.getNextMove(false, "c2");
+        myboard.getNextMove(true, "a3");
+        myboard.getNextMove(false, "d2");
+        myboard.getNextMove(true, "a4");
+        myboard.getNextMove(false, "d1");
+        myboard.getNextMove(true, "a5");
 
         //      _________________________________
         //     |                                 |

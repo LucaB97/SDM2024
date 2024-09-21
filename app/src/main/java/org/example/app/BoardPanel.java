@@ -13,7 +13,7 @@ import exceptions.*;
 
 public class BoardPanel extends JPanel {
     private final int size;
-    private Quentin.Game newGame;
+    private Game newGame;
     private final int cellDimension;
     private final int offset;
     private Color boardColor = new Color(34, 139, 34); // Default background color of the board
@@ -21,7 +21,7 @@ public class BoardPanel extends JPanel {
 
     public BoardPanel(int size, int cell_dim, int offset) {
         this.size = size;
-        this.newGame = new Quentin.Game(size);
+        this.newGame = new Game(size);
         this.cellDimension = cell_dim;
         this.offset = offset;
         setPreferredSize(new Dimension(size * cellDimension, size * cellDimension));

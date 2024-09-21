@@ -1,6 +1,5 @@
 package org.example.app;
 
-import org.example.app.Quentin.Game;
 import exceptions.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,11 +13,11 @@ public class isLocationAdjacentTests {
     @Test
     public void locationNotAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
-        myBoard.nextMove_tests(true, "a1");
-        myBoard.nextMove_tests(false, "b2");
-        myBoard.nextMove_tests(true, "a2");        
-        myBoard.nextMove_tests(false, "c2");
-        myBoard.nextMove_tests(true, "d1");
+        myBoard.getNextMove(true, "a1");
+        myBoard.getNextMove(false, "b2");
+        myBoard.getNextMove(true, "a2");        
+        myBoard.getNextMove(false, "c2");
+        myBoard.getNextMove(true, "d1");
         
         //      _________________________________
         //     |                                 |
@@ -47,10 +46,10 @@ public class isLocationAdjacentTests {
     @Test
     public void locationAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
-        myBoard.nextMove_tests(true, "a1");
-        myBoard.nextMove_tests(false, "b2");
-        myBoard.nextMove_tests(true, "a2");
-        myBoard.nextMove_tests(false, "c2");
+        myBoard.getNextMove(true, "a1");
+        myBoard.getNextMove(false, "b2");
+        myBoard.getNextMove(true, "a2");
+        myBoard.getNextMove(false, "c2");
 
         //      _________________________________
         //     |                                 |

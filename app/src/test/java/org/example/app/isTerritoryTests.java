@@ -1,6 +1,5 @@
 package org.example.app;
 
-import org.example.app.Quentin.Game;
 import exceptions.*;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -11,10 +10,10 @@ public class isTerritoryTests {
     @Test
     public void isTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
-        myBoard.nextMove_tests(true, "a2");
-        myBoard.nextMove_tests(false, "b2");
-        myBoard.nextMove_tests(true, "c2");        
-        myBoard.nextMove_tests(false, "c1");
+        myBoard.getNextMove(true, "a2");
+        myBoard.getNextMove(false, "b2");
+        myBoard.getNextMove(true, "c2");        
+        myBoard.getNextMove(false, "c1");
         
         //      _________________________________
         //     |                                 |
@@ -42,9 +41,9 @@ public class isTerritoryTests {
     @Test
     public void isTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
-        myBoard.nextMove_tests(true, "a2");
-        myBoard.nextMove_tests(false, "b2");
-        myBoard.nextMove_tests(true, "b1");        
+        myBoard.getNextMove(true, "a2");
+        myBoard.getNextMove(false, "b2");
+        myBoard.getNextMove(true, "b1");        
         
         //      _________________________________
         //     |                                 |
@@ -72,10 +71,10 @@ public class isTerritoryTests {
     @Test
     public void isTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
-        myBoard.nextMove_tests(true, "a5");
-        myBoard.nextMove_tests(false, "b4");
-        myBoard.nextMove_tests(true, "d5");        
-        myBoard.nextMove_tests(false, "c4");
+        myBoard.getNextMove(true, "a5");
+        myBoard.getNextMove(false, "b4");
+        myBoard.getNextMove(true, "d5");        
+        myBoard.getNextMove(false, "c4");
 
         //      _________________________________
         //     |                                 |
