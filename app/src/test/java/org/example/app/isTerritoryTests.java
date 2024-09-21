@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class isTerritoryTests {
 
     @Test
-    public void isTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a2");
         myBoard.nextMove_tests(false, "b2");
@@ -40,7 +40,7 @@ public class isTerritoryTests {
 
 
     @Test
-    public void isTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a2");
         myBoard.nextMove_tests(false, "b2");
@@ -70,7 +70,7 @@ public class isTerritoryTests {
 
 
     @Test
-    public void isTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a5");
         myBoard.nextMove_tests(false, "b4");

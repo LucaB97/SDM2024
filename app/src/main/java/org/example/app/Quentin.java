@@ -76,97 +76,27 @@ public class Quentin {
             }
 
             return convertedValues;
-        }
-        
+        }   
 
 
-        public boolean checkIsGameover() {
-            /* It verifies if there is a winning path for any of the players */
 
-            Set<Integer> winningPath = new TreeSet<>();
-            
-            // Check if a winning path for the black player exists, from each of the possible starting locations (first row)
-            boolean blackWon = false;
-            int initialLocationBlack = 0;
+        public List<Integer> findEmptyLocations(final boolean empty) {
+            /* It returns the current set of empty locations (empty=true) or filled locations (empty=false) */
 
-            while (!blackWon && initialLocationBlack<sideLength) {
-                if (board.get(initialLocationBlack) == 0)
-                    blackWon = isWinningPath(initialLocationBlack, new ArrayList<Integer>(), winningPath);
-                    initialLocationBlack++;
+            List<Integer> locationsList;
+            if (empty) {
+                locationsList = IntStream.range(0, board.size())
+                    .filter(index -> board.get(index) == -1)
+                    .boxed()
+                    .collect(Collectors.toList());
+            } else {
+                locationsList = IntStream.range(0, board.size())
+                    .filter(index -> board.get(index) != -1)
+                    .boxed()
+                    .collect(Collectors.toList());
             }
-
-            if (blackWon) {
-                System.out.println("BLACK WON!");
-                List<String> winningPathPositions = convert(winningPath);
-                System.out.println(winningPathPositions);
-                return true;
-            }
-
-            // Check if a winning path for the white player exists, from each of the possible starting locations (first column)
-            boolean whiteWon = false;
-            int rowIndex = 0;
-            int initialLocationWhite;
-            
-            while (!whiteWon && rowIndex<sideLength) {
-                initialLocationWhite = rowIndex*sideLength;
-                if (board.get(initialLocationWhite) == 1)
-                    whiteWon = isWinningPath(initialLocationWhite, new ArrayList<Integer>(), winningPath);
-                rowIndex++;
-            }
-
-            if (whiteWon) {
-                System.out.println("WHITE WON!");
-                List<String> winningPathPositions = convert(winningPath);
-                System.out.println(winningPathPositions);
-                return true;
-            }
-
-            return false;
-        }
-
-
-
-        public boolean isWinningPath(final int initialLocation, List<Integer> excludedLocations, Set<Integer> candidatePath) {            
-            /* Recursive function. 
-               It checks for a winning path for a specific player:
-               - a top-to-bottom way of orthogonally adjacent points, for the black player; 
-               - a left-to-right way for the white player.
-               The "exclude" list is populated with the already considered points: 
-               they must be removed to prevent the function to get stuck.
-               */
-            
-            List<Integer> sameColorNeighbours = new ArrayList<>();
-            for (Integer n : findNeighbours(initialLocation)) {
-                if (board.get(n).equals(board.get(initialLocation)) && !excludedLocations.contains(n))
-                    sameColorNeighbours.add(n);
-            }
-
-            // Eligible locations for the end of a winning path: last row for black, last column for white
-            List<Integer> arrivalLocations = new ArrayList<>();
-            for (int i = 0; i < sideLength; i++) {
-                if (board.get(initialLocation) == 0)
-                    arrivalLocations.add(board.size() - sideLength + i);
-                else
-                    arrivalLocations.add(i*sideLength + sideLength - 1);
-            }
-            
-            // Base case
-            if (arrivalLocations.contains(initialLocation)) {
-                return true;
-            } 
-            // Recursive case
-            else {                
-                excludedLocations.add(initialLocation);
-                for (Integer x : sameColorNeighbours) {
-                    if (isWinningPath(x, excludedLocations, candidatePath)) {
-                        candidatePath.add(x);
-                        candidatePath.add(initialLocation);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+            return locationsList;
+        } 
 
 
 
@@ -210,195 +140,7 @@ public class Quentin {
                 diagonalPointsList.add(location+sideLength+1);     
             
             return diagonalPointsList;  
-        }
-
-
-
-        public List<Integer> findEmptyLocations(boolean empty) {
-            /* It returns the current set of empty locations (empty=true) or empty locations (empty=false) */
-
-            List<Integer> locationsList;
-            if (empty) {
-                locationsList = IntStream.range(0, board.size())
-                    .filter(index -> board.get(index) == -1)
-                    .boxed()
-                    .collect(Collectors.toList());
-            } else {
-                locationsList = IntStream.range(0, board.size())
-                    .filter(index -> board.get(index) != -1)
-                    .boxed()
-                    .collect(Collectors.toList());
-            }
-            return locationsList;
-        }
-
-
-
-        public int getNextMove(final boolean isBlackPlayer) throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-            /* It gets a new input and checks whether the request for the next move can be fulfilled, specifically if:
-             * the format of the input is correct (<letter><number>),
-             * the location is valid (i.e., it is within the limits of the board),
-             * the location is free (not occupied by the player or the opponent).
-             * The procedure is repeated until all the checks are passed successfully, then the location is filled and its index returned */
-            
-            List<Integer> filledLocations = findEmptyLocations(false);
-            boolean isValidMove = false;
-            boolean isFreeLocation = false;
-            String input_expected_pattern = "[a-zA-Z]\\d+";    //used to verify the input format
-            int location = -1;
-            String userInput;
-
-            while (!isValidMove || !isFreeLocation) {
-                try {
-                    
-                    System.out.println("Enter a position in the board (e.g.: a1): ");
-                    userInput = scanner.nextLine();
-
-                    if (!(userInput.matches(input_expected_pattern))) {
-                        throw new IncorrectFormatException("Incorrect format. Try again!\n");
-                    }
-                    
-                    int moveLetter = userInput.toLowerCase().charAt(0) - 'a';
-                    int moveNumber = Integer.parseInt(userInput.substring(1));
-                    location = moveLetter * sideLength + (moveNumber-1);
-                    
-                    isValidMove = location >= 0 && location < board.size() && moveNumber > 0 && moveNumber <= sideLength;
-                    isFreeLocation = !filledLocations.contains(location);
-                    if (!isValidMove) {
-                        throw new InvalidLocationException("Invalid location. Try again!\n");                        
-                    } else if (!isFreeLocation) {
-                        throw new OccupiedLocationException("Location already filled. Try again!\n");
-                    }
-
-                    // If all the checks are passed, fill the location with the color of the player
-                    board.set(location, isBlackPlayer ? 0 : 1);
-
-                } catch (IncorrectFormatException | InvalidLocationException | OccupiedLocationException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            return location;
-        }
-
-
-
-        public int nextMove_tests(final boolean black, final String userInput) throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-            /* Variation of the previous function, which takes as argument the next location (useful for tests) */
-            
-            List<Integer> filledLocations = findEmptyLocations(false);
-            String pattern = "[a-zA-Z]\\d+";    //used to verify the input format
-
-            if (!(userInput.matches(pattern))) {
-                throw new IncorrectFormatException("Incorrect format. Try again!\n");
-            }
-            
-            int letter = userInput.toLowerCase().charAt(0) - 'a';
-            int number = Integer.parseInt(userInput.substring(1));
-            int location = letter*sideLength + (number-1);
-            
-            boolean validMove =  location>=0 && location<board.size() && number>0 && number<=sideLength;
-            boolean freeLocation = !filledLocations.contains(location);
-            if (!validMove) {
-                throw new InvalidLocationException("Invalid location. Try again!\n");
-            }
-
-            if (!freeLocation) {
-                throw new OccupiedLocationException("Location already filled. Try again!\n");
-            }
-
-            board.set(location, black ? 0 : 1);
-            return location;  
-        }
-        
-
-
-        public void updateBoard(final boolean isBlackPlayer) throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
-            /* It updates the board with the last move and all the related changes (if they are compliant to the rules):
-               (1) The regions present on the board after the last move are identified and, 
-                   if they have the requirements to be considered a territory, they are filled accordingly;
-               (2) A check is carried out to verify whether the last move produced some illegal configuration on the board:
-                   in this case, all the locations filled during this function call are freed, and a new input is asked for */
-
-            List<Integer> emptyLocations = new ArrayList<>();            
-            List<Integer> currentRegion = new ArrayList<>();
-            List<Integer> territories = new ArrayList<>();
-
-            int lastMove = getNextMove(isBlackPlayer);
-
-            // Until a valid move is prompted (both the move and the consequent board configuration have to be valid):
-            while (true) {
-                emptyLocations = findEmptyLocations(true);
-
-                // The regions are identified, one at a time, until all the empty locations have been considered 
-                while (!emptyLocations.isEmpty()) {
-                    
-                    currentRegion = findNextRegion(emptyLocations);
-                    if (isTerritory(currentRegion)) {
-                        fillTerritory(currentRegion, lastMove);
-                        territories.addAll(currentRegion);
-                    }
-                    
-                    // The locations belonging to the region are removed from the list of empty locations
-                    emptyLocations.removeAll(currentRegion);                    
-                }
-
-                if (!isLegalMove(lastMove)) {
-                    board.set(lastMove, -1);
-                    territories.forEach(index -> board.set(index, -1));
-                    territories.clear();
-                    System.out.println("Illegal move. Try again!\n");
-                    lastMove = getNextMove(isBlackPlayer);
-                }
-                else
-                    break;
-            }      
-        }
-
-
-
-        public boolean isLegalMove(final int location) {
-            /* It verifies if a move is legal, i.e., if at the end of the player's turn 
-               there are NOT any couples of points with the same color such that they are diagonally 
-               adjacent and the do not share any orthogonally adjacent, like-colored neighbour */
-            
-            List<Integer> likeColoredNeighbours = new ArrayList<>();
-
-            // Check for and store the locations of the like-colored neighbours of the last point
-            for (int i : findNeighbours(location)) {
-                if (board.get(i) == board.get(location)) {
-                    likeColoredNeighbours.add(i);
-                }
-            }
-
-            // Verify if any of the diagonally adjacent points are like-colored and share any of the neighbours from before
-            for (int i : findDiagonals(location)) {
-                if (board.get(i) == board.get(location)) {
-                    Set<Integer> commonNeighbours = new TreeSet<>(findNeighbours(i));
-                    commonNeighbours.retainAll(likeColoredNeighbours);
-
-                    // If not, the move is illegal!
-                    if (commonNeighbours.isEmpty()) {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-
-
-        public List<Integer> findNextRegion(final List<Integer> emptyLocations) {
-            /* It determines the next region (group of adjacent empty locations) in the board */
-            
-            List<Integer> regionLocations = new ArrayList<>();
-            for (int next : emptyLocations) {                
-                if (regionLocations.isEmpty() || isLocationAdjacent(regionLocations, next)) {
-                    regionLocations.add(next);
-                }
-            }
-            return regionLocations;
-        }
+        }      
         
 
 
@@ -445,6 +187,20 @@ public class Quentin {
                 if (!temporarySet.isEmpty())
                     return true;
             }
+        }
+
+
+
+        public List<Integer> findNextRegion(final List<Integer> emptyLocations) {
+            /* It determines the next region (group of adjacent empty locations) in the board */
+            
+            List<Integer> regionLocations = new ArrayList<>();
+            for (int next : emptyLocations) {                
+                if (regionLocations.isEmpty() || isLocationAdjacent(regionLocations, next)) {
+                    regionLocations.add(next);
+                }
+            }
+            return regionLocations;
         }
 
 
@@ -497,7 +253,7 @@ public class Quentin {
             }
 
             // Assign to all locations in the territory a value according to the counts
-            final int replacement = (counterBlackNeighbours<counterWhiteNeighbours)? 1 : 0;
+            final int replacement = (counterBlackNeighbours < counterWhiteNeighbours)? 1 : 0;
             territory.forEach(index -> board.set(index, replacement));
 
             // The newly inserted values are returned (useful for tests)
@@ -508,24 +264,296 @@ public class Quentin {
     
             return values;
         }
+
+
+
+        public int getNextMove(final boolean isBlackPlayer) throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+            /* It gets a new input and checks whether the request for the next move can be fulfilled, specifically if:
+             * the format of the input is correct (<letter><number>),
+             * the location is valid (i.e., it is within the limits of the board),
+             * the location is free (not occupied by the player or the opponent).
+             * The procedure is repeated until all the checks are passed successfully, then the location is filled and its index returned */
+            
+            List<Integer> filledLocations = findEmptyLocations(false);
+            boolean isInsideBoardLimitsLocation = false;
+            boolean isFreeLocation = false;
+            String input_expected_pattern = "[a-zA-Z]\\d+";    //used to verify the input format
+            int location = -1;
+            String userInput;
+
+            while (!isInsideBoardLimitsLocation || !isFreeLocation) {
+                try {
+                    
+                    System.out.println("Enter a position in the board (e.g.: a1): ");
+                    userInput = scanner.nextLine();
+
+                    if (!(userInput.matches(input_expected_pattern))) {
+                        throw new IncorrectFormatException("Incorrect format. Try again!\n");
+                    }
+                    
+                    int moveLetter = userInput.toLowerCase().charAt(0) - 'a';
+                    int moveNumber = Integer.parseInt(userInput.substring(1));
+                    location = moveLetter * sideLength + (moveNumber-1);
+
+                    isInsideBoardLimitsLocation =  location>=0 && location<board.size() && moveNumber>0 && moveNumber<=sideLength;
+                    isFreeLocation = !filledLocations.contains(location);
+                    if (!isInsideBoardLimitsLocation) {
+                        throw new OutOfRangeLocationException("Location out of range. Try again!\n");
+                    }
+
+                    if (!isFreeLocation) {
+                        throw new OccupiedLocationException("Location already filled. Try again!\n");
+                    }
+
+                } catch (IncorrectFormatException | OutOfRangeLocationException | OccupiedLocationException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            return location;
+        }
+
+
+
+        public int nextMove_tests(final boolean black, final String userInput) throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+            /* Variation of the previous function, which takes as argument the next location (useful for tests) */
+            
+            List<Integer> filledLocations = findEmptyLocations(false);
+            String pattern = "[a-zA-Z]\\d+";    //used to verify the input format
+
+            if (!(userInput.matches(pattern))) {
+                throw new IncorrectFormatException("Incorrect format. Try again!\n");
+            }
+            
+            int letter = userInput.toLowerCase().charAt(0) - 'a';
+            int number = Integer.parseInt(userInput.substring(1));
+            int location = letter*sideLength + (number-1);
+            
+            boolean insideBoardLimitsLocation =  location>=0 && location<board.size() && number>0 && number<=sideLength;
+            boolean freeLocation = !filledLocations.contains(location);
+            if (!insideBoardLimitsLocation) {
+                throw new OutOfRangeLocationException("Location out of range. Try again!\n");
+            }
+
+            if (!freeLocation) {
+                throw new OccupiedLocationException("Location already filled. Try again!\n");
+            }
+
+            board.set(location, black ? 0 : 1);
+            return location;  
+        } 
+
+
+
+        public boolean isLegal(final int location) {
+            /* It verifies if a certain configuration is legal or not.
+               A location is illegal if it has one or more like-colored diagonal points and no like-colored neighbours */
+            
+            List<Integer> likeColoredNeighbours = new ArrayList<>();
+
+            // Check for and store the locations of the like-colored neighbours
+            for (int i : findNeighbours(location)) {
+                if (board.get(i) == board.get(location)) {
+                    likeColoredNeighbours.add(i);
+                }
+            }
+
+            // Verify if any of the diagonally adjacent points are like-colored and share any of the neighbours from before
+            for (int i : findDiagonals(location)) {
+                if (board.get(i) == board.get(location)) {
+                    Set<Integer> commonNeighbours = new TreeSet<>(findNeighbours(i));
+                    commonNeighbours.retainAll(likeColoredNeighbours);
+
+                    // If not, the move is illegal!
+                    if (commonNeighbours.isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+
+
+        public List<Integer> updateBoard(final boolean isBlackPlayer, final int move) {
+            /* It identifies the regions, one at a time, until all the empty locations have been considered, and fills them 
+                   if they have the requirements to be considered a territory */
+
+            List<Integer> emptyLocations = new ArrayList<>();            
+            List<Integer> currentRegion = new ArrayList<>();
+            List<Integer> territories = new ArrayList<>();
+
+            board.set(move, isBlackPlayer ? 0 : 1);
+            emptyLocations = findEmptyLocations(true);
+            // (1) 
+            while (!emptyLocations.isEmpty()) {                    
+                currentRegion = findNextRegion(emptyLocations);
+                if (isTerritory(currentRegion)) {
+                    fillTerritory(currentRegion, move);
+                    territories.addAll(currentRegion);
+                }                    
+                emptyLocations.removeAll(currentRegion);                    
+            }
+
+            territories.add(0, move);
+            return territories;
+        }      
+
+
+
+        public List<Integer> findAvailableMoves(final boolean isBlackPlayer) {
+            /* It returns the available moves for the player, given the current board configuration */
+
+            List<Integer> emptyLocations = findEmptyLocations(true);
+            List<Integer> filledLocations = new ArrayList<>();
+            List<Integer> availableMoves = new ArrayList<>();
+
+            for (int current : emptyLocations) {
+                filledLocations = updateBoard(isBlackPlayer, current);
+
+                for (int x : filledLocations) {
+                    if (!isLegal(x)) {
+                        filledLocations.forEach(index -> board.set(index, -1));
+                        filledLocations.clear();
+                        break;
+                    }
+                }
+
+                if (!filledLocations.isEmpty()) {
+                    availableMoves.add(current);
+                    filledLocations.forEach(index -> board.set(index, -1));
+                    filledLocations.clear();
+                }
+            }
+
+            return availableMoves;   
+        }
+
+
+
+        public boolean isWinningPath(final int initialLocation, List<Integer> excludedLocations, Set<Integer> candidatePath) {            
+            /* Recursive function. 
+               It checks for a winning path for a specific player:
+               - a top-to-bottom way of orthogonally adjacent points, for the black player; 
+               - a left-to-right way for the white player.
+               The "exclude" list is populated with the already considered points: 
+               they must be removed to prevent the function to get stuck.
+               */
+            
+            List<Integer> sameColorNeighbours = new ArrayList<>();
+            for (Integer n : findNeighbours(initialLocation)) {
+                if (board.get(n).equals(board.get(initialLocation)) && !excludedLocations.contains(n))
+                    sameColorNeighbours.add(n);
+            }
+
+            // Eligible locations for the end of a winning path: last row for black, last column for white
+            List<Integer> arrivalLocations = new ArrayList<>();
+            for (int i = 0; i < sideLength; i++) {
+                if (board.get(initialLocation) == 0)
+                    arrivalLocations.add(board.size() - sideLength + i);
+                else
+                    arrivalLocations.add(i*sideLength + sideLength - 1);
+            }
+            
+            // Base case
+            if (arrivalLocations.contains(initialLocation)) {
+                return true;
+            } 
+            // Recursive case
+            else {                
+                excludedLocations.add(initialLocation);
+                for (Integer x : sameColorNeighbours) {
+                    if (isWinningPath(x, excludedLocations, candidatePath)) {
+                        candidatePath.add(x);
+                        candidatePath.add(initialLocation);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
+        public boolean isGameover() {
+            /* It verifies if there is a winning path for any of the players */
+
+            Set<Integer> winningPath = new TreeSet<>();
+            
+            // Check if a winning path for the black player exists, from each of the possible starting locations (first row)
+            boolean blackWon = false;
+            int initialLocationBlack = 0;
+
+            while (!blackWon && initialLocationBlack<sideLength) {
+                if (board.get(initialLocationBlack) == 0)
+                    blackWon = isWinningPath(initialLocationBlack, new ArrayList<Integer>(), winningPath);
+                    initialLocationBlack++;
+            }
+
+            if (blackWon) {
+                System.out.println("BLACK WON!");
+                List<String> winningPathPositions = convert(winningPath);
+                System.out.println(winningPathPositions);
+                return true;
+            }
+
+            // Check if a winning path for the white player exists, from each of the possible starting locations (first column)
+            boolean whiteWon = false;
+            int rowIndex = 0;
+            int initialLocationWhite;
+            
+            while (!whiteWon && rowIndex<sideLength) {
+                initialLocationWhite = rowIndex*sideLength;
+                if (board.get(initialLocationWhite) == 1)
+                    whiteWon = isWinningPath(initialLocationWhite, new ArrayList<Integer>(), winningPath);
+                rowIndex++;
+            }
+
+            if (whiteWon) {
+                System.out.println("WHITE WON!");
+                List<String> winningPathPositions = convert(winningPath);
+                System.out.println(winningPathPositions);
+                return true;
+            }
+
+            return false;
+        }
     }
 
 
 
-    public static void main(String[] args) throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public static void main(String[] args) throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         
-        Game myboard = new Game(5);
-        System.out.println(myboard + "\n");
+        Game myBoard = new Game(5);
+        int lastMove;
+        List<Integer> blackMoves = new ArrayList<>();
+        List<Integer> whiteMoves = new ArrayList<>();
+        System.out.println(myBoard + "\n");
+        
         do {
-            System.out.println("BLACK MOVES");
-            myboard.updateBoard(true);
-            System.out.println(myboard + "\n");
-            if (!myboard.checkIsGameover()) {
-                System.out.println("WHITE MOVES");
-                myboard.updateBoard(false);
-                System.out.println(myboard + "\n");
+            // Black
+            blackMoves = myBoard.findAvailableMoves(true);
+            System.out.println(blackMoves);
+            if (!blackMoves.isEmpty()) {
+                System.out.println("BLACK MOVES");                
+                while (!blackMoves.contains(lastMove = myBoard.getNextMove(true))) {System.out.println("Illegal move. Try again!\n");}
+                myBoard.updateBoard(true, lastMove);
+                System.out.println(myBoard + "\n");
+            } 
+
+            // White
+            if (!myBoard.isGameover()) {
+                whiteMoves = myBoard.findAvailableMoves(false);
+                System.out.println(whiteMoves);
+                if (!whiteMoves.isEmpty()) {
+                    System.out.println("WHITE MOVES");                
+                    while (!whiteMoves.contains(lastMove = myBoard.getNextMove(false))) {System.out.println("Illegal move. Try again!\n");}
+                    myBoard.updateBoard(false, lastMove);
+                    System.out.println(myBoard + "\n");
+                }    
             }
-        } while (!myboard.checkIsGameover());
+            
+        } while (!myBoard.isGameover());
 
     }
 }

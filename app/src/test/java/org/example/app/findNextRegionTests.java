@@ -12,7 +12,7 @@ public class findNextRegionTests {
 
     //TEST REGIONS WHICH ARE NOT TERRITORIES
     @Test
-    public void findNextRegionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void findNextRegionTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
         myboard.nextMove_tests(true, "a1");
         myboard.nextMove_tests(false, "b2");
@@ -47,7 +47,7 @@ public class findNextRegionTests {
     }
 
     @Test
-    public void findNextRegionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void findNextRegionTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myboard = new Game(5);
         myboard.nextMove_tests(true, "a1");
         myboard.nextMove_tests(false, "b2");

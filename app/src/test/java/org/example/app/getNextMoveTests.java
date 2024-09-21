@@ -57,39 +57,39 @@ public class getNextMoveTests {
     
     //INCORRECT FORMAT EXCEPTION TESTS: only inputs like <letter><number> should be accepted
     @Test
-    public void getNextMoveIncorrectFormatExceptionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveIncorrectFormatExceptionTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "a-4");});
     }
 
     @Test
-    public void getNextMoveIncorrectFormatExceptionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveIncorrectFormatExceptionTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "4a");});
     }
 
     @Test
-    public void getNextMoveIncorrectFormatExceptionTest3() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveIncorrectFormatExceptionTest3() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         assertThrows(IncorrectFormatException.class, () -> {myBoard.nextMove_tests(true, "4");});
     }
 
     //INVALID LOCATION EXCEPTION TESTS: inputs exceeding the board should be rejected
     @Test
-    public void getNextMoveInvalidLocationExceptionTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveOutOfRangeLocationExceptionTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
-        assertThrows(InvalidLocationException.class, () -> {myBoard.nextMove_tests(true, "n0");});
+        assertThrows(OutOfRangeLocationException.class, () -> {myBoard.nextMove_tests(true, "n0");});
     }
 
     @Test
-    public void getNextMoveInvalidLocationExceptionTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveOutOfRangeLocationExceptionTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
-        assertThrows(InvalidLocationException.class, () -> {myBoard.nextMove_tests(true, "a14");});
+        assertThrows(OutOfRangeLocationException.class, () -> {myBoard.nextMove_tests(true, "a14");});
     }
 
     //OCCUPIED LOCATION EXCEPTION TESTS
     @Test
-    public void getNextMoveOccupiedLocationExceptionTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveOccupiedLocationExceptionTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         myBoard.nextMove_tests(true, "a1");
         assertThrows(OccupiedLocationException.class, () -> {myBoard.nextMove_tests(false, "a1");});
@@ -97,14 +97,14 @@ public class getNextMoveTests {
 
     //REGULAR FUNCTIONING 
     @Test
-    public void getNextMoveCorrectPlacingBlackTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveCorrectPlacingBlackTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         myBoard.nextMove_tests(true, "a2");
         assertEquals(0, myBoard.board.get(1));
     }
 
     @Test
-    public void getNextMoveCorrectPlacingWhiteTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void getNextMoveCorrectPlacingWhiteTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(13);
         myBoard.nextMove_tests(false, "a4");
         assertEquals(1, myBoard.board.get(3));

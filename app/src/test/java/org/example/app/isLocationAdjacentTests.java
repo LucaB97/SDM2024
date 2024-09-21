@@ -12,7 +12,7 @@ public class isLocationAdjacentTests {
 
     // The point is NOT adjacent to the region
     @Test
-    public void locationNotAdjacentTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void locationNotAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "b2");
@@ -45,7 +45,7 @@ public class isLocationAdjacentTests {
 
     // The point is adjacent to the region
     @Test
-    public void locationAdjacentTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void locationAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "b2");

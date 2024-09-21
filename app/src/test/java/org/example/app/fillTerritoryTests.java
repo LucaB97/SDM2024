@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class fillTerritoryTests {
 
     @Test
-    public void fillTerritoryBlackMajorityTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void fillTerritoryBlackMajorityTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "d1");
@@ -41,7 +41,7 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryWhiteMajorityTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void fillTerritoryWhiteMajorityTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "d1");
@@ -74,7 +74,7 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryDrawBlackLastMoveTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void fillTerritoryDrawBlackLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "d1");
@@ -108,7 +108,7 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryDrawWhiteLastMoveTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void fillTerritoryDrawWhiteLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(false, "d1");

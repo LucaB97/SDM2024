@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class isWinningPathTests {
 
     @Test
-    public void isWinningPathBlackFalseTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathBlackFalseTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(true, "a2");
@@ -43,7 +43,7 @@ public class isWinningPathTests {
 
 
     @Test
-    public void isWinningPathBlackFalseTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathBlackFalseTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(true, "a2");
@@ -77,7 +77,7 @@ public class isWinningPathTests {
 
 
     @Test
-    public void isWinningPathBlackTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathBlackTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(true, "a1");
         myBoard.nextMove_tests(true, "a2");
@@ -111,7 +111,7 @@ public class isWinningPathTests {
 
 
     @Test
-    public void isWinningPathWhiteFalseTest1() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathWhiteFalseTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(false, "a1");
         myBoard.nextMove_tests(false, "a2");
@@ -144,7 +144,7 @@ public class isWinningPathTests {
 
 
     @Test
-    public void isWinningPathWhiteFalseTest2() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathWhiteFalseTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(false, "a1");
         myBoard.nextMove_tests(false, "a2");
@@ -178,7 +178,7 @@ public class isWinningPathTests {
 
 
     @Test
-    public void isWinningPathWhiteTrueTest() throws IncorrectFormatException, InvalidLocationException, OccupiedLocationException {
+    public void isWinningPathWhiteTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
         Game myBoard = new Game(5);
         myBoard.nextMove_tests(false, "a1");
         myBoard.nextMove_tests(false, "a2");
