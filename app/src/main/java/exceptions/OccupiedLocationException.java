@@ -1,6 +1,6 @@
 package exceptions;
 
-public class OccupiedLocationException extends Exception {
+public class OccupiedLocationException extends RuntimeException {
     public OccupiedLocationException(String message) {
         super(message);
     }

@@ -2,6 +2,8 @@ package org.example.app;
 
 import exceptions.*;
 import java.util.Arrays;
+
+import org.example.input.ArgumentInputHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,11 +11,18 @@ public class isTerritoryTests {
 
     @Test
     public void isTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a2");
-        myBoard.getNextMove(false, "b2");
-        myBoard.getNextMove(true, "c2");        
-        myBoard.getNextMove(false, "c1");
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c1");
+        myGame.board.grid.set(nextMove, 1);
         
         //      _________________________________
         //     |                                 |
@@ -34,16 +43,22 @@ public class isTerritoryTests {
         //          1     2     3     4     5
         //
         // The points [a1,b1] do not constitute a territory since point a1 does not have two filled neighbours 
-        assertEquals(false, myBoard.isTerritory(Arrays.asList(0,5)));
+        assertEquals(false, myGame.isTerritory(Arrays.asList(0,5)));
     }
 
 
     @Test
     public void isTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a2");
-        myBoard.getNextMove(false, "b2");
-        myBoard.getNextMove(true, "b1");        
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b1");
+        myGame.board.grid.set(nextMove, 0);    
         
         //      _________________________________
         //     |                                 |
@@ -64,17 +79,24 @@ public class isTerritoryTests {
         //          1     2     3     4     5
         //
         // The point a1 has two filled neighbours, so it is a territory
-        assertEquals(true, myBoard.isTerritory(Arrays.asList(0)));
+        assertEquals(true, myGame.isTerritory(Arrays.asList(0)));
     }
 
 
     @Test
     public void isTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a5");
-        myBoard.getNextMove(false, "b4");
-        myBoard.getNextMove(true, "d5");        
-        myBoard.getNextMove(false, "c4");
+       
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a5");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b4");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d5");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c4");
+        myGame.board.grid.set(nextMove, 1);
 
         //      _________________________________
         //     |                                 |
@@ -95,7 +117,7 @@ public class isTerritoryTests {
         //          1     2     3     4     5
         //
         // The points [b5,c5] are a territory
-        assertEquals(true, myBoard.isTerritory(Arrays.asList(9,14)));
+        assertEquals(true, myGame.isTerritory(Arrays.asList(9,14)));
     }
 
 }

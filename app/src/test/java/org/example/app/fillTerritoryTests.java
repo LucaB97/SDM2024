@@ -1,6 +1,7 @@
 package org.example.app;
 
 import exceptions.*;
+import org.example.input.ArgumentInputHandler;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,13 +9,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class fillTerritoryTests {
 
     @Test
-    public void fillTerritoryBlackMajorityTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a1");
-        myBoard.getNextMove(false, "d1");
-        myBoard.getNextMove(true, "c2");        
-        myBoard.getNextMove(false, "d2");
-        myBoard.getNextMove(true, "b2");
+    public void fillTerritoryBlackMajorityTest() {
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d1");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 0);
 
         //      _________________________________
         //     |                                 |
@@ -34,20 +43,29 @@ public class fillTerritoryTests {
         //     |_________________________________|
         //          1     2     3     4     5
         //
-        //region {b0,c0} -> {5,10} should be filled by black (0)
-        assertEquals(Arrays.asList(0,0), myBoard.fillTerritory(Arrays.asList(5,10),6));
+        //region {b1,c1} -> {5,10} should be filled by black (0)
+        assertEquals(Arrays.asList(0,0), myGame.fillTerritory(Arrays.asList(5,10),6));
     }
 
 
     @Test
     public void fillTerritoryWhiteMajorityTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a1");
-        myBoard.getNextMove(false, "d1");
-        myBoard.getNextMove(true, "a2");        
-        myBoard.getNextMove(false, "b2");
-        myBoard.getNextMove(true, "a3");
-        myBoard.getNextMove(false, "c2");
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d1");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a3");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c2");
+        myGame.board.grid.set(nextMove, 1);
 
         //      _________________________________
         //     |                                 |
@@ -68,20 +86,30 @@ public class fillTerritoryTests {
         //          1     2     3     4     5
         //
         //region {b0,c0} -> {5,10} should be filled by white (1)
-        assertEquals(Arrays.asList(1,1), myBoard.fillTerritory(Arrays.asList(5,10),11));
+        assertEquals(Arrays.asList(1,1), myGame.fillTerritory(Arrays.asList(5,10),11));
     }
 
 
     @Test
     public void fillTerritoryDrawBlackLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a1");
-        myBoard.getNextMove(false, "d1");
-        myBoard.getNextMove(true, "a2");        
-        myBoard.getNextMove(false, "d2");
-        myBoard.getNextMove(true, "a3");
-        myBoard.getNextMove(false, "c2");
-        myBoard.getNextMove(true, "b2");
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d1");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a3");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 0);
 
         //      _________________________________
         //     |                                 |
@@ -102,19 +130,28 @@ public class fillTerritoryTests {
         //          1     2     3     4     5
         //
         //region {b0,c0} -> {5,10} should be filled by white (1)
-        assertEquals(Arrays.asList(1,1), myBoard.fillTerritory(Arrays.asList(5,10),6));
+        assertEquals(Arrays.asList(1,1), myGame.fillTerritory(Arrays.asList(5,10),6));
     }
 
 
     @Test
     public void fillTerritoryDrawWhiteLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        Game myBoard = new Game(5);
-        myBoard.getNextMove(true, "a1");
-        myBoard.getNextMove(false, "d1");
-        myBoard.getNextMove(true, "a2");        
-        myBoard.getNextMove(false, "d2");
-        myBoard.getNextMove(true, "b2");
-        myBoard.getNextMove(false, "c2");
+        
+        ArgumentInputHandler argHandler = new ArgumentInputHandler();
+        Game myGame = new Game(5, argHandler, null);
+        int nextMove;
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d1");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "d2");
+        myGame.board.grid.set(nextMove, 1);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "b2");
+        myGame.board.grid.set(nextMove, 0);
+        nextMove = myGame.inputHandler.getNextMove(myGame.board, "c2");
+        myGame.board.grid.set(nextMove, 1);
 
         //      _________________________________
         //     |                                 |
@@ -135,7 +172,7 @@ public class fillTerritoryTests {
         //          1     2     3     4     5
         //
         //region {b0,c0} -> {5,10} should be filled by black (0)
-        assertEquals(Arrays.asList(0,0), myBoard.fillTerritory(Arrays.asList(5,10),11));
+        assertEquals(Arrays.asList(0,0), myGame.fillTerritory(Arrays.asList(5,10),11));
     }
 
 }
