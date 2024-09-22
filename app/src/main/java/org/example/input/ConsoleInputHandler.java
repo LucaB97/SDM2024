@@ -1,9 +1,7 @@
 package org.example.input;
 
 import org.example.app.*;
-import exceptions.IncorrectFormatException;
-import exceptions.OccupiedLocationException;
-import exceptions.OutOfRangeLocationException;
+import exceptions.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +22,7 @@ public class ConsoleInputHandler implements InputHandler {
         return validateMove(board, move);
     }
 
-    private int validateMove(Board board, String userInput) throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    private int validateMove(Board board, String userInput) {
         /* It checks whether the input move can be fulfilled, specifically if:
          * the format of the input is correct (<letter><number>),
          * the location is valid (i.e., it is within the limits of the board),

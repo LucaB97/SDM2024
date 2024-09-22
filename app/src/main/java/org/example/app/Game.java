@@ -9,6 +9,7 @@ import org.example.endgame.CompletePathCondition;
 import org.example.endgame.EndConditionChecker;
 import org.example.input.ConsoleInputHandler;
 import org.example.input.InputHandler;
+import exceptions.*;
 
 
 public class Game {
@@ -17,23 +18,31 @@ public class Game {
     protected final Board board;
     protected final InputHandler inputHandler;
     protected final EndConditionChecker endConditionChecker;
+    private final Player blackPlayer;
+    private final Player whitePlayer;
 
     public Game() {
         this.board = new Board(default_size);
         this.inputHandler = new ConsoleInputHandler();
         this.endConditionChecker = new CompletePathCondition();
+        this.blackPlayer = new Player(true);
+        this.whitePlayer = new Player(false);
     }   
 
     public Game(int size) {
         this.board = new Board(size);
         this.inputHandler = new ConsoleInputHandler();
         this.endConditionChecker = new CompletePathCondition();
+        this.blackPlayer = new Player(true);
+        this.whitePlayer = new Player(false);
     } 
 
     public Game(int size, InputHandler inputHandler, EndConditionChecker endConditionChecker) {
         this.board = new Board(size);
         this.inputHandler = inputHandler;
         this.endConditionChecker = endConditionChecker;
+        this.blackPlayer = new Player(true);
+        this.whitePlayer = new Player(false);
     }    
 
 
@@ -93,7 +102,7 @@ public class Game {
     }
 
 
-    boolean isTerritory(final List<Integer> region) {            
+    boolean isValidTerritory(final List<Integer> region) {            
         /* It checks if the region verifies the condition to be considered a territory:
          * each location in the region has at least two not-empty neighbours */
 
@@ -171,7 +180,6 @@ public class Game {
                 Set<Integer> commonNeighbours = new TreeSet<>(board.findNeighbours(i));
                 commonNeighbours.retainAll(likeColoredNeighbours);
 
-                // If not, the move is illegal!
                 if (commonNeighbours.isEmpty()) {
                     return false;
                 }
@@ -195,7 +203,7 @@ public class Game {
         // (1) 
         while (!emptyLocations.isEmpty()) {                    
             currentRegion = findNextRegion(emptyLocations);
-            if (isTerritory(currentRegion)) {
+            if (isValidTerritory(currentRegion)) {
                 fillTerritory(currentRegion, move);
                 territories.addAll(currentRegion);
             }                    
@@ -234,21 +242,6 @@ public class Game {
 
         return availableMoves;   
     }
-
-
-    public List<String> convert(final Set<Integer> values) {
-        /* converts the locations of the board array in the <letter><number> format, useful when printing the winning path */
-        List<String> convertedValues = new ArrayList<>();
-        int column, row;
-
-        for (int v : values) {
-            column = v % board.sideLength;
-            row = v / board.sideLength + 1;
-            convertedValues.add((char)('a' + row - 1) + Integer.toString(column));
-        }
-
-        return convertedValues;
-    } 
     
 
     public boolean isGameover() {
@@ -268,34 +261,32 @@ public class Game {
     }
 
 
-    public void playGame() {
-        List<Integer> blackMoves = new ArrayList<>();
-        List<Integer> whiteMoves = new ArrayList<>();
-        int lastMove;
-        
-        do {
-            // Black
-            blackMoves = findAvailableMoves(true);
-            // System.out.println(blackMoves);
-            if (!blackMoves.isEmpty()) {
-                System.out.println("BLACK MOVES");                
-                while (!blackMoves.contains(lastMove = inputHandler.getNextMove(board, null))) {System.out.println("Illegal move. Try again!\n");}
-                updateBoard(true, lastMove);
-                System.out.println(board + "\n");
-            } 
+    public void makeMove(Player player) {
+        List<Integer> availableMoves = findAvailableMoves(player.isBlack());
 
-            // White
-            if (!isGameover()) {
-                whiteMoves = findAvailableMoves(false);
-                // System.out.println(whiteMoves);
-                if (!whiteMoves.isEmpty()) {
-                    System.out.println("WHITE MOVES");                
-                    while (!whiteMoves.contains(lastMove = inputHandler.getNextMove(board, null))) {System.out.println("Illegal move. Try again!\n");}
-                    updateBoard(false, lastMove);
-                    System.out.println(board + "\n");
-                }    
-            }
+        if (availableMoves.isEmpty())
+            throw new NoMovesAvailableException(player.getName() + " has no available moves"); 
+        
+        int lastMove = player.chooseMove(availableMoves, inputHandler, board);
+        updateBoard(player.isBlack(), lastMove);
+        System.out.println(board + "\n");
             
-        } while (!isGameover());
     }
+
+
+    public void playGame() {
+        
+        while (true) {
+            // Black
+            makeMove(blackPlayer);
+            if (!isGameover()) 
+                break;
+            
+            // White
+            makeMove(whitePlayer);
+            if (!isGameover()) 
+                break;
+        }
+    }
+
 }

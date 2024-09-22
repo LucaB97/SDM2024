@@ -9,7 +9,7 @@ public class Quentin {
 
     public static void main(String[] args) {
         
-        Game myBoard;        
+        Game newGame;        
 
         if (args.length > 0) {
             try {
@@ -17,16 +17,15 @@ public class Quentin {
                 int size = Integer.parseInt(args[0]);
                 InputHandler inputHandler = new ConsoleInputHandler();
                 EndConditionChecker endCondition = new CompletePathCondition();
-                myBoard = new Game(size, inputHandler, endCondition);
+                newGame = new Game(size, inputHandler, endCondition);
             } catch (NumberFormatException e) {
                 System.out.println("The argument is not a valid integer.");
                 return;
             }
         } else {
-            myBoard = new Game();
+            newGame = new Game(5, new ConsoleInputHandler(), new CompletePathCondition());
         }
-        System.out.println(myBoard + "\n");
-        
-
+        System.out.println(newGame.board + "\n");
+        newGame.playGame();
     }
 }

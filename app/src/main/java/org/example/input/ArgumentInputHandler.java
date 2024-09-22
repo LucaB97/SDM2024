@@ -1,9 +1,7 @@
 package org.example.input;
 
 import org.example.app.*;
-import exceptions.IncorrectFormatException;
-import exceptions.OccupiedLocationException;
-import exceptions.OutOfRangeLocationException;
+import exceptions.*;
 
 import java.util.List;
 
