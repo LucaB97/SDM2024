@@ -1,8 +1,5 @@
 package org.example.app;
 
-import org.example.endgame.CompletePathCondition;
-import org.example.endgame.EndConditionChecker;
-import org.example.input.ArgumentInputHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,11 +7,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathBlackFalseTest1() {
-        
-        System.out.println("isWinningPathBlackFalseTest1");
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -56,10 +50,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathBlackFalseTest2() {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -103,10 +95,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathBlackTrueTest() {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -150,10 +140,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathWhiteFalseTest1() {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 1);
@@ -195,10 +183,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathWhiteFalseTest2() {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 1);
@@ -242,10 +228,8 @@ public class isWinningPathTests {
 
     @Test
     public void isWinningPathWhiteTrueTest() {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        EndConditionChecker endConditionChecker = new CompletePathCondition();
-        Game myGame = new Game(5, argHandler, endConditionChecker);
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 1);

@@ -2,9 +2,8 @@ package org.example.app;
 
 import java.util.List;
 import org.example.input.InputHandler;
-import exceptions.*;
 
-public class Player {
+public abstract class Player {
     private final boolean isBlackPlayer; // true for black, false for white
     private final String name;
 
@@ -26,20 +25,6 @@ public class Player {
         return name;
     }
 
-    // Player only chooses a move from available options, it doesn't validate the move
-    public int chooseMove(List<Integer> availableMoves, InputHandler inputHandler, Board board) {
-        System.out.println(name + " MOVES");
-        int move;
-        while (true) {
-            try {
-                if (availableMoves.contains(move = inputHandler.getNextMove(board, null)))
-                    return move;
-                else
-                    System.out.println("Illegal move. Try again!\n");
-                    
-            } catch (IncorrectFormatException | OutOfRangeLocationException | OccupiedLocationException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+    // Abstract method for choosing a move
+    public abstract int chooseMove(List<Integer> availableMoves, InputHandler inputHandler, Board board);
 }

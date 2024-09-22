@@ -1,11 +1,9 @@
 package org.example.app;
 
-import exceptions.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.example.input.ArgumentInputHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,10 +11,9 @@ public class isLocationAdjacentTests {
 
     // The point is NOT adjacent to the region
     @Test
-    public void locationNotAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void locationNotAdjacentTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -54,10 +51,9 @@ public class isLocationAdjacentTests {
 
     // The point is adjacent to the region
     @Test
-    public void locationAdjacentTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void locationAdjacentTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);

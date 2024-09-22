@@ -1,11 +1,8 @@
 package org.example.app;
 
-import exceptions.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.example.input.ArgumentInputHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,10 +10,9 @@ public class findNextRegionTests {
 
     //TEST REGIONS WHICH ARE NOT TERRITORIES
     @Test
-    public void findNextRegionTest1() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void findNextRegionTest1() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -57,10 +53,9 @@ public class findNextRegionTests {
     }
 
     @Test
-    public void findNextRegionTest2() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void findNextRegionTest2() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -105,10 +100,9 @@ public class findNextRegionTests {
     }
 
     @Test
-    public void findNextRegionTest3() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void findNextRegionTest3() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);

@@ -1,7 +1,5 @@
 package org.example.app;
 
-import exceptions.*;
-import org.example.input.ArgumentInputHandler;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,8 +9,7 @@ public class fillTerritoryTests {
     @Test
     public void fillTerritoryBlackMajorityTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -49,10 +46,9 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryWhiteMajorityTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void fillTerritoryWhiteMajorityTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -91,10 +87,9 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryDrawBlackLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void fillTerritoryDrawBlackLastMoveTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);
@@ -135,10 +130,9 @@ public class fillTerritoryTests {
 
 
     @Test
-    public void fillTerritoryDrawWhiteLastMoveTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
+    public void fillTerritoryDrawWhiteLastMoveTest() {
         
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a1");
         myGame.board.grid.set(nextMove, 0);

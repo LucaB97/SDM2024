@@ -1,19 +1,15 @@
 package org.example.app;
 
-import exceptions.*;
 import java.util.Arrays;
-
-import org.example.input.ArgumentInputHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class isValidTerritoryTests {
 
     @Test
-    public void isValidTerritoryTestTopLeftFalseTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+    public void isValidTerritoryTestTopLeftFalseTest() {
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
         myGame.board.grid.set(nextMove, 0);
@@ -48,10 +44,9 @@ public class isValidTerritoryTests {
 
 
     @Test
-    public void isValidTerritoryTestTopLeftTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-        
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+    public void isValidTerritoryTestTopLeftTrueTest() {
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a2");
         myGame.board.grid.set(nextMove, 0);
@@ -84,10 +79,9 @@ public class isValidTerritoryTests {
 
 
     @Test
-    public void isValidTerritoryTestRightEdgeTrueTest() throws IncorrectFormatException, OutOfRangeLocationException, OccupiedLocationException {
-       
-        ArgumentInputHandler argHandler = new ArgumentInputHandler();
-        Game myGame = new Game(5, argHandler, null);
+    public void isValidTerritoryTestRightEdgeTrueTest() {
+
+        Game myGame = new Game(5);
         int nextMove;
         nextMove = myGame.inputHandler.getNextMove(myGame.board, "a5");
         myGame.board.grid.set(nextMove, 0);

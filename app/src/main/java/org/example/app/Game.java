@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import org.example.endgame.CompletePathCondition;
 import org.example.endgame.EndConditionChecker;
+import org.example.input.ArgumentInputHandler;
 import org.example.input.ConsoleInputHandler;
 import org.example.input.InputHandler;
 import exceptions.*;
@@ -14,35 +15,35 @@ import exceptions.*;
 
 public class Game {
 
-    final static int default_size = 13;
+    final static int defaultSize = 13;
     protected final Board board;
     protected final InputHandler inputHandler;
     protected final EndConditionChecker endConditionChecker;
-    private final Player blackPlayer;
-    private final Player whitePlayer;
+    protected final Player blackPlayer;
+    protected final Player whitePlayer;
 
     public Game() {
-        this.board = new Board(default_size);
+        this.board = new Board(defaultSize);
         this.inputHandler = new ConsoleInputHandler();
         this.endConditionChecker = new CompletePathCondition();
-        this.blackPlayer = new Player(true);
-        this.whitePlayer = new Player(false);
+        this.blackPlayer = new Human(true);
+        this.whitePlayer = new Computer(false);
     }   
 
     public Game(int size) {
         this.board = new Board(size);
-        this.inputHandler = new ConsoleInputHandler();
+        this.inputHandler = new ArgumentInputHandler();
         this.endConditionChecker = new CompletePathCondition();
-        this.blackPlayer = new Player(true);
-        this.whitePlayer = new Player(false);
+        this.blackPlayer = new Human(true);
+        this.whitePlayer = new Human(false);
     } 
 
-    public Game(int size, InputHandler inputHandler, EndConditionChecker endConditionChecker) {
+    public Game(int size, InputHandler inputHandler, EndConditionChecker endConditionChecker, Player blackPlayer, Player whitePlayer) {
         this.board = new Board(size);
         this.inputHandler = inputHandler;
         this.endConditionChecker = endConditionChecker;
-        this.blackPlayer = new Player(true);
-        this.whitePlayer = new Player(false);
+        this.blackPlayer = blackPlayer;
+        this.whitePlayer = whitePlayer;
     }    
 
 
@@ -279,12 +280,12 @@ public class Game {
         while (true) {
             // Black
             makeMove(blackPlayer);
-            if (!isGameover()) 
+            if (isGameover()) 
                 break;
             
             // White
             makeMove(whitePlayer);
-            if (!isGameover()) 
+            if (isGameover()) 
                 break;
         }
     }
