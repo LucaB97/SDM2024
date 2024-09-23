@@ -1,6 +1,6 @@
 package org.example.endgame;
 
-import org.example.app.Board;
+import org.example.board.Board;
 
 public interface EndConditionChecker {
     

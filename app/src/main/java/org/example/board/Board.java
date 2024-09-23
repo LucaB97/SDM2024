@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.board;
 
 import java.util.Collections;
 import java.util.List;

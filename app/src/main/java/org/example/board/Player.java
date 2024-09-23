@@ -1,7 +1,9 @@
-package org.example.app;
+package org.example.board;
 
 import java.util.List;
+
 import org.example.input.InputHandler;
+
 
 public abstract class Player {
     private final boolean isBlackPlayer; // true for black, false for white

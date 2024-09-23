@@ -1,16 +1,13 @@
 package org.example.app;
 
+import org.example.board.*;
+import org.example.endgame.*;
+import org.example.input.*;
+import exceptions.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.example.endgame.CompletePathCondition;
-import org.example.endgame.EndConditionChecker;
-import org.example.input.ArgumentInputHandler;
-import org.example.input.ConsoleInputHandler;
-import org.example.input.InputHandler;
-import exceptions.*;
 
 
 public class Game {
@@ -19,6 +16,7 @@ public class Game {
     protected final Board board;
     protected final InputHandler inputHandler;
     protected final EndConditionChecker endConditionChecker;
+    protected final EndGameDealer endGameDealer;
     protected final Player blackPlayer;
     protected final Player whitePlayer;
 
@@ -26,6 +24,7 @@ public class Game {
         this.board = new Board(defaultSize);
         this.inputHandler = new ConsoleInputHandler();
         this.endConditionChecker = new CompletePathCondition();
+        this.endGameDealer = new ConsoleEndGame();
         this.blackPlayer = new Human(true);
         this.whitePlayer = new Computer(false);
     }   
@@ -34,14 +33,16 @@ public class Game {
         this.board = new Board(size);
         this.inputHandler = new ArgumentInputHandler();
         this.endConditionChecker = new CompletePathCondition();
+        this.endGameDealer = new ConsoleEndGame();
         this.blackPlayer = new Human(true);
         this.whitePlayer = new Human(false);
     } 
 
-    public Game(int size, InputHandler inputHandler, EndConditionChecker endConditionChecker, Player blackPlayer, Player whitePlayer) {
+    public Game(int size, InputHandler inputHandler, EndConditionChecker endConditionChecker, EndGameDealer endGameDealer, Player blackPlayer, Player whitePlayer) {
         this.board = new Board(size);
         this.inputHandler = inputHandler;
         this.endConditionChecker = endConditionChecker;
+        this.endGameDealer = endGameDealer;
         this.blackPlayer = blackPlayer;
         this.whitePlayer = whitePlayer;
     }    
@@ -251,10 +252,12 @@ public class Game {
         endConditionChecker.getBoardConfiguration(board);
         
         if (endConditionChecker.checkConditionBlack()) {
-            System.out.println("BLACK WON!");
+            endGameDealer.getWinner(true);
+            endGameDealer.signalEndGame();
             return true;
         } else if (endConditionChecker.checkConditionWhite()) {
-            System.out.println("WHITE WON!");
+            endGameDealer.getWinner(false);
+            endGameDealer.signalEndGame();
             return true;
         } else
             return false;
@@ -270,7 +273,6 @@ public class Game {
         
         int lastMove = player.chooseMove(availableMoves, inputHandler, board);
         updateBoard(player.isBlack(), lastMove);
-        System.out.println(board + "\n");
             
     }
 
@@ -280,11 +282,13 @@ public class Game {
         while (true) {
             // Black
             makeMove(blackPlayer);
+            System.out.println(board + "\n");
             if (isGameover()) 
                 break;
             
             // White
             makeMove(whitePlayer);
+            System.out.println(board + "\n");
             if (isGameover()) 
                 break;
         }

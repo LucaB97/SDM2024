@@ -1,7 +1,9 @@
-package org.example.app;
+package org.example.board;
 
 import java.util.List;
+
 import org.example.input.InputHandler;
+
 
 public class Computer extends Player {
 

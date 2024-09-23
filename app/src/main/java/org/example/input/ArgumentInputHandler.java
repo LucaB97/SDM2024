@@ -1,9 +1,9 @@
 package org.example.input;
 
-import org.example.app.*;
+import org.example.board.Board;
 import exceptions.*;
-
 import java.util.List;
+
 
 public class ArgumentInputHandler implements InputHandler {
 

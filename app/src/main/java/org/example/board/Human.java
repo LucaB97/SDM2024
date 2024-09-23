@@ -1,8 +1,11 @@
-package org.example.app;
+package org.example.board;
 
 import java.util.List;
+
+import org.example.input.ConsoleInputHandler;
 import org.example.input.InputHandler;
 import exceptions.*;
+
 
 public class Human extends Player {
 
@@ -12,8 +15,12 @@ public class Human extends Player {
 
     @Override
     public int chooseMove(List<Integer> availableMoves, InputHandler inputHandler, Board board) {
-        System.out.println(getName() + " MOVES");
+        if (inputHandler instanceof ConsoleInputHandler) {
+            System.out.println(getName() + " MOVES");
+        }
+
         int move;
+        
         while (true) {
             try {
                 move = inputHandler.getNextMove(board, null);
